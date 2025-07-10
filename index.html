@@ -8,24 +8,26 @@
   <style>
     body {
       margin: 0;
-      padding: 0;
-      background: #000;
+      padding: 30px 15px;
+      background: #fff;
       font-family: 'Great Vibes', cursive;
       display: flex;
       flex-direction: column;
-      justify-content: center;
       align-items: center;
+      justify-content: flex-start;
       height: 100vh;
+      box-sizing: border-box;
       transition: background 1s ease;
-      overflow: hidden;
     }
 
     #flowerCanvas {
       display: none;
+      max-width: 90vw;
+      margin-top: 20px;
     }
 
     button {
-      padding: 15px 30px;
+      padding: 12px 28px;
       font-size: 24px;
       border: none;
       border-radius: 10px;
@@ -44,29 +46,90 @@
 
     .message {
       color: white;
-      font-size: 28px;
+      font-size: 26px;
       margin-top: 20px;
+      text-align: center;
       opacity: 0;
       transition: opacity 2s ease;
-    }
-
-    #topText {
-      color: white;
-      font-size: 30px;
-      margin-bottom: 20px;
-      font-family: 'Great Vibes', cursive;
-      opacity: 0;
-      transition: opacity 2s ease;
+      max-width: 90vw;
     }
   </style>
 </head>
 <body>
 
-  <h1 id="topText">Eres la razón de cada flor que florece en mi corazón 🌷</h1>
   <button onclick="startFlower()">Para Tí Mi Amor 💜</button>
-  <canvas id="flowerCanvas" width="900" height="600"></canvas>
+  <canvas id="flowerCanvas" width="600" height="500"></canvas>
   <div class="message" id="loveMessage">Esta flor nace de mi amor por ti, Andrea 🌸</div>
 
-  <script src="flower.js"></script>
+  <script>
+    function startFlower() {
+      document.body.style.background = "black";
+      document.querySelector("button").style.display = "none";
+      const canvas = document.getElementById("flowerCanvas");
+      const ctx = canvas.getContext("2d");
+      canvas.style.display = "block";
+
+      let petals = [];
+      let animationFrame = 0;
+
+      function drawLeaves() {
+        ctx.fillStyle = "#2E8B57";
+        ctx.beginPath();
+        ctx.ellipse(270, 420, 30, 15, -0.5, 0, Math.PI * 2);
+        ctx.fill();
+
+        ctx.beginPath();
+        ctx.ellipse(330, 400, 30, 15, 0.5, 0, Math.PI * 2);
+        ctx.fill();
+      }
+
+      function drawPetal(x, y, rotation) {
+        ctx.save();
+        ctx.translate(x, y);
+        ctx.rotate(rotation);
+        ctx.fillStyle = "#cc66ff";
+        ctx.beginPath();
+        ctx.moveTo(0, 0);
+        ctx.quadraticCurveTo(15, -40, 0, -60);
+        ctx.quadraticCurveTo(-15, -40, 0, 0);
+        ctx.fill();
+        ctx.restore();
+      }
+
+      function drawFlowerCore() {
+        ctx.beginPath();
+        ctx.arc(300, 340, 10, 0, 2 * Math.PI);
+        ctx.fillStyle = "#ffccff";
+        ctx.fill();
+      }
+
+      function animateFlower() {
+        animationFrame++;
+        if (animationFrame < 100) {
+          ctx.strokeStyle = "#228B22";
+          ctx.lineWidth = 6;
+          ctx.beginPath();
+          ctx.moveTo(300, 500);
+          ctx.lineTo(300, 500 - 2 * animationFrame);
+          ctx.stroke();
+        } else if (animationFrame === 100) {
+          drawLeaves();
+        } else if (animationFrame > 100 && petals.length < 12) {
+          const angleDeg = (Math.PI * 2 * petals.length) / 12;
+          petals.push(angleDeg);
+          drawPetal(300, 340, angleDeg);
+        } else if (animationFrame === 113) {
+          drawFlowerCore();
+          document.getElementById("loveMessage").style.opacity = 1;
+        }
+
+        if (animationFrame <= 113) {
+          requestAnimationFrame(animateFlower);
+        }
+      }
+
+      animateFlower();
+    }
+  </script>
 </body>
 </html>
