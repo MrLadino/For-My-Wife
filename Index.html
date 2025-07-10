@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Para Ti Mi Amor</title>
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: #000;
+      font-family: 'Great Vibes', cursive;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      transition: background 1s ease;
+      overflow: hidden;
+    }
+
+    #flowerCanvas {
+      display: none;
+    }
+
+    button {
+      padding: 15px 30px;
+      font-size: 24px;
+      border: none;
+      border-radius: 10px;
+      background-color: #6a0dad;
+      color: white;
+      cursor: pointer;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+      transition: transform 0.2s ease;
+      margin-top: 20px;
+    }
+
+    button:hover {
+      transform: scale(1.05);
+      background-color: #5a029b;
+    }
+
+    .message {
+      color: white;
+      font-size: 28px;
+      margin-top: 20px;
+      opacity: 0;
+      transition: opacity 2s ease;
+    }
+
+    #topText {
+      color: white;
+      font-size: 30px;
+      margin-bottom: 20px;
+      font-family: 'Great Vibes', cursive;
+      opacity: 0;
+      transition: opacity 2s ease;
+    }
+  </style>
+</head>
+<body>
+
+  <h1 id="topText">Eres la razón de cada flor que florece en mi corazón 🌷</h1>
+  <button onclick="startFlower()">Para Tí Mi Amor 💜</button>
+  <canvas id="flowerCanvas" width="900" height="600"></canvas>
+  <div class="message" id="loveMessage">Esta flor nace de mi amor por ti, Andrea 🌸</div>
+
+  <script src="flower.js"></script>
+</body>
+</html>
